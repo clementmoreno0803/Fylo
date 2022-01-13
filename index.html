@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+</head>
+
+<body id="app">
+    <div class="container">
+        <div class="brand_identity">
+            <img src="./assets/logo.svg" alt="">
+            <div class="files_icon">
+                <img src="./assets/icon-document.svg" alt="" class='icon'>
+                <img src="./assets/icon-folder.svg" alt="" class='icon'>
+                <img src="./assets/icon-upload.svg" alt="" class='icon'>
+            </div>
+        </div>
+        <div class="storage">
+            <p>You've used {{storageValue}} of your storage </p>
+            <div class="slidecontainer">
+                <input type="range" @mousemove="changeColor" :style={background:bg_color} min="0" max="1000" v-model='storageValue' class="slider" id="myRange">
+            </div>
+            <div class="storage_left">
+                <h2><span id="number_left">{{storageLeft}} </span> gb left</h2>
+            </div>
+        </div>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    storageValue: 500,
+                    bg_color: ''
+                }
+            },
+            computed: {
+                storageLeft() {
+                    return (1000 - this.storageValue)
+                },
+                changeColor() {
+                    let x = this.storageValue;
+                    let color = 'linear-gradient(90deg, rgba(255, 163, 153, 1)' + (x / 10) + '%, var(--primary)' + ((x / 10)) + '%';
+                    this.bg_color = color
+                    console.log(color)
+
+                },
+            }
+        });
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
